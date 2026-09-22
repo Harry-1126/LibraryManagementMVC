@@ -1,0 +1,70 @@
+@using LibraryManagementMVC.Extensions
+
+@model LibraryMember
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="container mt-4">
+
+    <h2>Book Issue Details</h2>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <p>
+                <strong>Member Name:</strong>
+                @Model.MemberName
+            </p>
+
+            <p>
+                <strong>Department:</strong>
+                @Model.Department
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                @Model.Email
+            </p>
+
+            <p>
+                <strong>Book ID:</strong>
+                @Model.BookId
+            </p>
+
+            <p>
+                <strong>Issue Date:</strong>
+                @Model.IssueDate.ToShortDateString()
+            </p>
+
+            <p>
+                <strong>Return Date:</strong>
+                @(Model.ReturnDate?.ToShortDateString() ?? "Not Returned")
+            </p>
+
+            <hr />
+
+            <p>
+                <strong>Due Status:</strong>
+                @Model.GetDueStatus()
+            </p>
+
+            <p>
+                <strong>Fine:</strong>
+                ₹@Model.CalculateFine()
+            </p>
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <a asp-action="Index"
+       class="btn btn-primary">
+        Back to Library
+    </a>
+
+</div>

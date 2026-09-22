@@ -1,0 +1,111 @@
+@model LibraryMember
+
+@{
+    ViewData["Title"] = "Issue Book";
+}
+
+<div class="container mt-4">
+
+    <h2>Issue Book</h2>
+
+    <form asp-action="IssueBook"
+          asp-controller="Library"
+          method="post">
+
+        <div class="mb-3">
+            <label asp-for="MemberName" class="form-label">
+                Member Name
+            </label>
+
+            <input asp-for="MemberName"
+                   class="form-control"
+                   required />
+
+            <span asp-validation-for="MemberName"
+                  class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="Department"
+                   class="form-label">
+                Department
+            </label>
+
+            <input asp-for="Department"
+                   class="form-control"
+                   required />
+
+            <span asp-validation-for="Department"
+                  class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="Email"
+                   class="form-label">
+                Email
+            </label>
+
+            <input asp-for="Email"
+                   type="email"
+                   class="form-control"
+                   required />
+
+            <span asp-validation-for="Email"
+                  class="text-danger"></span>
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="BookId"
+                   class="form-label">
+                Book ID
+            </label>
+
+            <input asp-for="BookId"
+                   type="number"
+                   class="form-control"
+                   required />
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="IssueDate"
+                   class="form-label">
+                Issue Date
+            </label>
+
+            <input asp-for="IssueDate"
+                   type="date"
+                   class="form-control"
+                   required />
+        </div>
+
+
+        <div class="mb-3">
+            <label asp-for="ReturnDate"
+                   class="form-label">
+                Return Date
+            </label>
+
+            <input asp-for="ReturnDate"
+                   type="date"
+                   class="form-control" />
+        </div>
+
+
+        <button type="submit"
+                class="btn btn-primary">
+            Issue Book
+        </button>
+
+        <a asp-action="Index"
+           asp-controller="Library"
+           class="btn btn-secondary">
+            Back
+        </a>
+
+    </form>
+
+</div>

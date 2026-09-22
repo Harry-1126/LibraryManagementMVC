@@ -1,0 +1,121 @@
+@using LibraryManagementMVC.Extensions
+
+@model List<LibraryMember>
+
+@{
+    ViewData["Title"] = "Issued Books";
+}
+
+<div class="container mt-4">
+
+    <h2>College Library - Issued Books</h2>
+
+    <div class="mb-3">
+        <a asp-action="IssueBook"
+           class="btn btn-primary">
+            Issue New Book
+        </a>
+
+        <a asp-action="About"
+           class="btn btn-info">
+            About Library
+        </a>
+    </div>
+
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Message"]
+        </div>
+    }
+
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Member</th>
+                <th>Department</th>
+                <th>Book</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Due Status</th>
+                <th>Fine</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var member in Model)
+            {
+                <tr>
+
+                    <td>@member.MemberName</td>
+
+                    <td>@member.Department</td>
+
+                    <td>@member.BookId</td>
+
+                    <td>
+                        @member.IssueDate.ToShortDateString()
+                    </td>
+
+                    <td>
+                        @(member.ReturnDate?.ToShortDateString() ?? "Not Returned")
+                    </td>
+
+                    <td>
+                        @{
+                            var status = member.GetDueStatus();
+                        }
+
+                        @if (status == "Returned")
+                        {
+                            <span class="alert alert-success p-1">
+                                Returned
+                            </span>
+                        }
+                        else if (status == "Due Soon")
+                        {
+                            <span class="alert alert-warning p-1">
+                                Due Soon
+                            </span>
+                        }
+                        else if (status == "Overdue")
+                        {
+                            <span class="alert alert-danger p-1">
+                                Overdue
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                Issued
+                            </span>
+                        }
+                    </td>
+
+                    <td>
+                        ₹@member.CalculateFine()
+                    </td>
+
+                    <td>
+                        <a asp-action="BookDetails"
+                           asp-route-id="@member.MemberId"
+                           class="btn btn-sm btn-info">
+                            Details
+                        </a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>
